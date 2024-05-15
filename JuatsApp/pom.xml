@@ -11,6 +11,32 @@
             <artifactId>mongodb-driver</artifactId>
             <version>3.12.14</version>
         </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.tyrus</groupId>
+            <artifactId>tyrus-server</artifactId>
+            <version>1.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-comet-server</artifactId>
+            <version>2.3.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-websockets</artifactId>
+            <version>2.3.12</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
