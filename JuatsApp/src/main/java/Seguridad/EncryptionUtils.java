@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptionUtils {
 
     private static final String AES_ALGORITHM = "AES";
-    private static final String SECRET_KEY = "SecretKey123456"; // Clave secreta para la encriptación
+    private static final String SECRET_KEY = "SecretKey123456"; // Cambiar en un entorno real
 
     public static String encrypt(String plainText) throws Exception {
         Key key = new SecretKeySpec(SECRET_KEY.getBytes(), AES_ALGORITHM);
