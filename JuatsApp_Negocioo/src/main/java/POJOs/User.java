@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package POJO;
+package POJOs;
 
 /**
  *
@@ -28,13 +28,14 @@ public class User {
 
     /**
      * Constructor con los atributos creados
+     *
      * @param phoneNumber
      * @param username
      * @param password
      * @param birthDate
      * @param profileImage
      * @param address
-     * @param gender 
+     * @param gender
      */
     public User(String phoneNumber, String username, String password, String birthDate, String profileImage, String address, String gender) {
         this.phoneNumber = phoneNumber;
@@ -45,9 +46,13 @@ public class User {
         this.address = address;
         this.gender = gender;
     }
-    
-    //Getters y setters
 
+    public User(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+
+    //Getters y setters
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -103,5 +108,5 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    
+
 }

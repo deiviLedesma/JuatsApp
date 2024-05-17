@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package POJO;
+package POJOs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +42,14 @@ public class Chat {
         this.thumbnailImageUrl = thumbnailImageUrl;
         this.messages = new ArrayList<>();
     }
-    
-    //Getters y setters
 
+    public Chat(String chatName, List<User> participants, String thumbnailImageUrl) {
+        this.chatName = chatName;
+        this.participants = participants;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+    }
+
+    //Getters y setters
     public String getChatId() {
         return chatId;
     }
@@ -84,5 +89,5 @@ public class Chat {
     public void setThumbnailImageUrl(String thumbnailImageUrl) {
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
-    
+
 }
