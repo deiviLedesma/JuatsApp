@@ -52,6 +52,16 @@ public class User {
         this.password = password;
     }
 
+    public User(String phoneNumber, String username, String password, String birthDate, String address, String gender) {
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.gender = gender;
+    }
+
+    
     //Getters y setters
     public String getPhoneNumber() {
         return phoneNumber;
