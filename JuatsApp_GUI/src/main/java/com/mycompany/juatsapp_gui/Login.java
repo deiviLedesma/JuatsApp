@@ -4,17 +4,27 @@
  */
 package com.mycompany.juatsapp_gui;
 
+import DAOs.UserDAO;
+import POJOs.User;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author diana
  */
 public class Login extends javax.swing.JFrame {
 
+    private UserDAO userDAO;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        userDAO = new UserDAO();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -67,6 +77,12 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(82, 167, 253));
         jLabel3.setText("Contraseña:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, -1, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 240, 40));
 
         jLabel4.setBackground(new java.awt.Color(82, 167, 253));
@@ -111,7 +127,7 @@ public class Login extends javax.swing.JFrame {
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
         // TODO add your handling code here:
-         Registro registro = new Registro();
+        Registro registro = new Registro();
         registro.setVisible(true);
         this.dispose(); // Cierra la ventana actual 
     }//GEN-LAST:event_RegistrarseActionPerformed
@@ -121,11 +137,19 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionActionPerformed
-        // TODO add your handling code here:
-        Chat chat = new Chat();
-        chat.setVisible(true);
-        this.dispose(); 
+        String phoneNumberOrUsername = jTextField2.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        if (userDAO.login(phoneNumberOrUsername, password) != null) {
+            ChatFrame c = new ChatFrame();
+            c.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_iniciarSesionActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments

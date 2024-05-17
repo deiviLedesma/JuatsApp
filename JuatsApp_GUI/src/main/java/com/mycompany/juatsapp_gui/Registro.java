@@ -4,6 +4,14 @@
  */
 package com.mycompany.juatsapp_gui;
 
+import Conexion.Conexion;
+import DAOs.UserDAO;
+import Interfaces.IUserDAO;
+import POJOs.User;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,11 +20,15 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JFrame {
 
+    private IUserDAO userDAO;
+    private UserDAO dAO;
+
     /**
      * Creates new form Registro
      */
     public Registro() {
         initComponents();
+        this.dAO = new UserDAO();
     }
 
     /**
@@ -74,13 +86,31 @@ public class Registro extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(82, 167, 253));
         jLabel4.setText("Contraseña:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 220, 30));
+
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 220, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(82, 167, 253));
         jLabel5.setText("Fecha de nacimiento:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 220, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -98,6 +128,12 @@ public class Registro extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(82, 167, 253));
         jLabel8.setText("Genero:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
+
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 220, 30));
 
         Registrarse.setBackground(new java.awt.Color(82, 167, 253));
@@ -113,6 +149,11 @@ public class Registro extends javax.swing.JFrame {
 
         jComboBox2.setBackground(new java.awt.Color(82, 167, 253));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Femenino", "Masculino", "Robot", "Ninja", "LGBT", " " }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 220, 30));
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 220, 30));
 
@@ -133,11 +174,33 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
-        // TODO add your handling code here:
-         
-        // Mostrar mensaje de registro exitoso
-        JOptionPane.showMessageDialog(this, "Registro exitoso");
 
+        String username = jTextField3.getText();
+        String phoneNumber = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+        String birthDate = jDateChooser1.getDateFormatString();
+        String address = jTextField6.getText();
+        String gender = (String) jComboBox2.getSelectedItem();
+
+        //User user = new User(phoneNumber, username, password, birthDate, birthDate, address, gender);
+        dAO.RegistrarUsuario(phoneNumber, password, username, birthDate, address, gender);
+
+        /**
+         * MongoClient mongoClient = Conexion.getMongoClient(); MongoDatabase
+         * database = mongoClient.getDatabase("JuatsApp");
+         *
+         * MongoCollection<User> userColeccion = database.getCollection("users",
+         * User.class);
+         *
+         * User existingUser = userColeccion.find(eq("phoneNumber",
+         * phoneNumber)).first(); // Buscamos el usuario por número de teléfono
+         * if (existingUser == null) { userColeccion.insertOne(user); //
+         * Insertamos el nuevo usuario JOptionPane.showMessageDialog(this,
+         * "Usuario registrado exitosamente."); } else {
+         * JOptionPane.showMessageDialog(this, "El número de teléfono ya está
+         * registrado.");
+        }*
+         */
         // Crear instancia del frame de login y mostrarlo
         Login login = new Login();
         login.setVisible(true);
@@ -145,6 +208,26 @@ public class Registro extends javax.swing.JFrame {
         // Cerrar el frame de registro actual
         this.dispose();
     }//GEN-LAST:event_RegistrarseActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
