@@ -86,4 +86,10 @@ public class Message implements Serializable  {
         this.timestamp = timestamp;
     }
 
+    private static class User {
+
+        public User() {
+        }
+    }
+
 }
