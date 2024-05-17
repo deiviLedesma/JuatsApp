@@ -4,11 +4,13 @@
  */
 package Conexion;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
-import org.bson.codecs.configuration.CodecRegistries;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -17,31 +19,56 @@ import org.bson.codecs.pojo.PojoCodecProvider;
  * @author SDavidLedesma
  */
 public class Conexion {
-    
-    private static MongoClient mongoClient = null;
-    private static final String cadenaConexion = "mongodb://localhost/27017";
+
+    private static final String connectionString = "mongodb://localhost:27017";
     private static final String database = "JuatsApp";
-    
+    private static MongoClient mongoClient = null;
+
     public static MongoDatabase getDatabase() {
         if (mongoClient == null) {
-
-            //configura el codec para manejar POJOs
-            CodecRegistry PojoCodecRegistry = CodecRegistries.fromRegistries(
+            // Configurar el registro de codecs para manejar POJOs
+            CodecRegistry pojoCodecRegistry = fromRegistries(
                     MongoClientSettings.getDefaultCodecRegistry(),
-                    CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())
+                    fromProviders(PojoCodecProvider.builder().automatic(true).build())
             );
-            //configura los ajustes del cliente MongoDB, incluyendo la cadena de conexion URL y el registro de codecs anterior
-            MongoClientSettings clientSettings = MongoClientSettings.builder()
-                    .applyConnectionString(new com.mongodb.ConnectionString(cadenaConexion))
-                    .codecRegistry(PojoCodecRegistry)
+
+            // Configurar los ajustes del cliente MongoDB, incluyendo la cadena de conexión URL y el registro de codecs anterior
+            MongoClientSettings settings = MongoClientSettings.builder()
+                    .applyConnectionString(new ConnectionString(connectionString))
+                    .codecRegistry(pojoCodecRegistry)
                     .build();
-            //se asigna los ajsutes al MongoCliente static de la clase
-            mongoClient = MongoClients.create(clientSettings);
-            //regresa la base de datos con la configuracion codecs
-            return mongoClient.getDatabase(database).withCodecRegistry(PojoCodecRegistry);
-            
+
+            // Crear el cliente MongoDB
+            mongoClient = MongoClients.create(settings);
         }
-        //si no es null, la regresa nuevamente
+        // Obtener la base de datos con la configuración de codecs
         return mongoClient.getDatabase(database);
     }
 }
+/**
+ * public static MongoDatabase getDatabase() { if (mongoClient == null) {
+ *
+ * //configura el codec para manejar POJOs CodecRegistry PojoCodecRegistry =
+ * CodecRegistries.fromRegistries(
+ * MongoClientSettings.getDefaultCodecRegistry(),
+ * CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())
+ * ); //configura los ajustes del cliente MongoDB, incluyendo la cadena de
+ * conexion URL y el registro de codecs anterior MongoClientSettings
+ * clientSettings = MongoClientSettings.builder() .applyConnectionString(new
+ * com.mongodb.ConnectionString(cadenaConexion))
+ * .codecRegistry(PojoCodecRegistry) .build(); //se asigna los ajsutes al
+ * MongoCliente static de la clase mongoClient =
+ * MongoClients.create(clientSettings); //regresa la base de datos con la
+ * configuracion codecs return
+ * mongoClient.getDatabase(database).withCodecRegistry(PojoCodecRegistry);
+ *
+ * }
+ * //si no es null, la regresa nuevamente return
+ * mongoClient.getDatabase(database); }
+ *
+ * // Método para obtener el cliente MongoDB public static MongoClient
+ * getMongoClient() { if (mongoClient == null) { // Obtener la base de datos
+ * para inicializar el cliente si es null getDatabase(); } return mongoClient; }
+ * }
+ *
+ */

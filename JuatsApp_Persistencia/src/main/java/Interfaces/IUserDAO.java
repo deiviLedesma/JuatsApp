@@ -5,15 +5,18 @@
 package Interfaces;
 
 import POJOs.User;
+import java.util.List;
 
 /**
  *
  * @author SDavidLedesma
  */
 public interface IUserDAO {
-    
-    public void RegistrarUsuario(String numero, String password);
-    public User login (String phoneNumberOrUsername, String password);
-    
-    
+
+    public void RegistrarUsuario(String phoneNumber, String password, String username, String birthDate, String address, String gender);
+
+    public User login(String phoneNumberOrUsername, String password);
+
+    public List<User> obtenerUusarios();
+
 }
