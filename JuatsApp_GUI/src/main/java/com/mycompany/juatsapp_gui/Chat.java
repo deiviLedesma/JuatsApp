@@ -32,6 +32,7 @@ public class Chat extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        Regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,13 +48,24 @@ public class Chat extends javax.swing.JFrame {
         jComboBox1.setForeground(new java.awt.Color(82, 167, 253));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chat 1", "Chat 2", " " }));
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 530, 40));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 440, 30));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 440, 30));
 
         jButton1.setBackground(new java.awt.Color(82, 167, 253));
         jButton1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jButton1.setText("Enviar");
         jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 460, 70, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 70, 30));
+
+        Regresar.setBackground(new java.awt.Color(82, 167, 253));
+        Regresar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
+        Regresar.setText("Regresar");
+        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,6 +80,13 @@ public class Chat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
+        // TODO add your handling code here:
+         Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,6 +124,7 @@ public class Chat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Regresar;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;

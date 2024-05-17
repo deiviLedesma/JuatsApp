@@ -124,7 +124,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Chat chat = new Chat();
         chat.setVisible(true);
-        this.dispose(); // Cierra la ventana actual 
+        this.dispose(); 
     }//GEN-LAST:event_iniciarSesionActionPerformed
 
     /**

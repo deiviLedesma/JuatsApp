@@ -39,13 +39,13 @@ public class Registro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         Registrarse = new javax.swing.JToggleButton();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -62,7 +62,7 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(82, 167, 253));
-        jLabel2.setText("Numero de telefono:");
+        jLabel2.setText("Numero de teléfono:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 180, 20));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -87,11 +87,10 @@ public class Registro extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(82, 167, 253));
         jLabel6.setText("Imagen de perfil: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, -1, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 220, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(82, 167, 253));
-        jLabel7.setText("Direccion: ");
+        jLabel7.setText("Dirección: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
         jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 220, 30));
 
@@ -102,7 +101,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 220, 30));
 
         Registrarse.setBackground(new java.awt.Color(82, 167, 253));
-        Registrarse.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        Registrarse.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         Registrarse.setText("Registrarse");
         Registrarse.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Registrarse.addActionListener(new java.awt.event.ActionListener() {
@@ -110,11 +109,12 @@ public class Registro extends javax.swing.JFrame {
                 RegistrarseActionPerformed(evt);
             }
         });
-        jPanel1.add(Registrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, 120, -1));
+        jPanel1.add(Registrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, 120, 30));
 
         jComboBox2.setBackground(new java.awt.Color(82, 167, 253));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Femenino", "Masculino", "Robot", "Ninja", "LGBT", " " }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 220, 30));
+        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 220, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,6 +185,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JToggleButton Registrarse;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -197,7 +198,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
