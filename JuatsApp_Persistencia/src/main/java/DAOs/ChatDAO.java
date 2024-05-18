@@ -15,6 +15,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
@@ -63,6 +64,49 @@ public class ChatDAO implements IChatDAO {
     public void addMessage(String chatId, String text, String imageURL, User sender) throws Exception {
         Message nuevoMensaje = new Message(new ObjectId(chatId).toString(), text, imageURL, sender, new Date());
         coleccionMessage.insertOne(nuevoMensaje);
+    }
+
+    @Override
+    public void addChat(Chat chat) {
+        coleccionChat.insertOne(chat);
+    }
+
+    @Override
+    public Chat obtenerOcrearChat(User user, User recipient) {
+// Intenta encontrar un chat existente que incluya a ambos usuarios
+        Chat existingChat = encontrarChatEntreUsuarios(user, recipient);
+
+        if (existingChat != null) {
+            // Si se encuentra un chat existente, devuélvelo
+            return existingChat;
+        } else {
+            // Si no se encuentra un chat existente, crea un nuevo chat con ambos usuarios
+            Chat newChat = crearNuevoChat(user, recipient);
+            // Guarda el nuevo chat en la base de datos
+            coleccionChat.insertOne(newChat);
+            return newChat;
+        }
+    }
+
+    private Chat encontrarChatEntreUsuarios(User user1, User user2) {
+        // Busca un chat que incluya a ambos usuarios
+        Bson filtro = Filters.and(
+                Filters.elemMatch("participants", Filters.eq("userId", user1.getUserId())),
+                Filters.elemMatch("participants", Filters.eq("userId", user2.getUserId()))
+        );
+        return coleccionChat.find(filtro).first();
+    }
+
+    private Chat crearNuevoChat(User user1, User user2) {
+        // Crea un nuevo chat con los usuarios dados
+        Chat newChat = new Chat();
+        newChat.setChatId(Chat.generateChatId());
+        newChat.setChatName("Chat entre " + user1.getUsername() + " y " + user2.getUsername());
+        List<User> participants = new ArrayList<>();
+        participants.add(user1);
+        participants.add(user2);
+        newChat.setParticipants(participants);
+        return newChat;
     }
 
 }

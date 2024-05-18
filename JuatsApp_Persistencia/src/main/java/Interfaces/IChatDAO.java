@@ -16,10 +16,15 @@ import java.util.List;
 public interface IChatDAO {
 
     public List<Chat> obtenerChatsDeUsuario(User user);
-    
+
     public List<Message> obteenerMensajesDeChat(Chat chat);
-    
-    public void addMessage(String chatId, String next, String imgaeURL, User sender) throws Exception;
+
+    public void addMessage(String chatId, String text, String imageURL, User sender) throws Exception;
+
+    public void addChat(Chat chat);
+
+    public Chat obtenerOcrearChat(User user, User recipient);
+
     /**
      * public String createChat(String chatName, List<User> participants, String
      * imageURL);
@@ -41,7 +46,6 @@ public interface IChatDAO {
      * public void editChat(String chatId, String newChatName, String
      * newImageURL);
      *
-     * public void deleteChat (String chatId);
-    * *
+     * public void deleteChat (String chatId); *
      */
 }
