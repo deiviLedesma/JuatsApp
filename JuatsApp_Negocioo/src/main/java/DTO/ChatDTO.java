@@ -17,6 +17,8 @@ public class ChatDTO {
     private List<MessageDTO> mensajes;
     private String thumbnailImageUrl; 
 
+    
+    //Constructor
     public ChatDTO(Long chatId, String nombreChat, List<UserDTO> participants, List<MessageDTO> mensajes, String thumbnailImageUrl) {
         this.chatId = chatId;
         this.nombreChat = nombreChat;
@@ -25,6 +27,7 @@ public class ChatDTO {
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
 
+    //Getters y Setters
     public Long getChatId() {
         return chatId;
     }

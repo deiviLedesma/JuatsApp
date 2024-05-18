@@ -13,9 +13,11 @@ public class UserDTO {
     private String usuario;
     private String password;
 
+    //Constructor vacio
     public UserDTO() {
     }
 
+    //Constructor
     public UserDTO(String numero, String usuario, String password) {
         this.numero = numero;
         this.usuario = usuario;
@@ -26,6 +28,7 @@ public class UserDTO {
         this.password = password;
     }
 
+    //Getters y setters
     public String getNumero() {
         return numero;
     }

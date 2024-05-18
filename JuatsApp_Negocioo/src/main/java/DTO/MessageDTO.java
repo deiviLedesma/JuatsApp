@@ -26,6 +26,7 @@ public class MessageDTO {
         this.timestamp = timestamp;
     }
 
+    //Getters y setters
     public Long getMessageId() {
         return messageId;
     }

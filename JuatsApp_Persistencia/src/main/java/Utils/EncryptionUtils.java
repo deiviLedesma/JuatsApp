@@ -16,10 +16,11 @@ import org.bson.internal.Base64;
  */
 public class EncryptionUtils {
 
+    // Llave secreta utilizada para encriptar y desencriptar
     String LLAVE = "bdaEsLaOnda";
 
+    // Crea una clave secreta a partir de la llave proporcionada
     public SecretKeySpec crearClave(String llave) {
-
         try {
             byte[] cadena = llave.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -32,6 +33,7 @@ public class EncryptionUtils {
         }
     }
 
+    // Encripta un texto utilizando AES
     public String Encriptar(String encriptar) {
         try {
             SecretKeySpec spec = crearClave(LLAVE);
@@ -42,13 +44,12 @@ public class EncryptionUtils {
             byte[] encriptada = c.doFinal(cadena);
             String cadena_encriptada = Base64.encode(encriptada);
             return cadena_encriptada;
-
         } catch (Exception e) {
             return "";
-
         }
     }
 
+    // Desencripta un texto previamente encriptado
     public String desencriptar(String desencriptar) {
         try {
             SecretKeySpec spec = crearClave(LLAVE);
@@ -63,6 +64,7 @@ public class EncryptionUtils {
             return "";
         }
     }
+    
 
     /**
      * private static final String AES_ALGORITHM = "AES"; private static final
