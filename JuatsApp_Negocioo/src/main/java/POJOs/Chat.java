@@ -6,6 +6,8 @@ package POJOs;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
+
 
 /**
  *
@@ -49,6 +51,11 @@ public class Chat {
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
 
+    public Chat(String chatId, List<User> participants) {
+        this.chatId = chatId;
+        this.participants = participants;
+    }
+
     //Getters y setters
     public String getChatId() {
         return chatId;
@@ -88,6 +95,21 @@ public class Chat {
 
     public void setThumbnailImageUrl(String thumbnailImageUrl) {
         this.thumbnailImageUrl = thumbnailImageUrl;
+    }
+
+    // Método para agregar participantes
+    public void addParticipant(User participant) {
+        participants.add(participant);
+    }
+
+    // Método para agregar un mensaje al chat
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
+    // Método para generar un ID de chat
+    public static String generateChatId() {
+        return new ObjectId().toString();
     }
 
 }

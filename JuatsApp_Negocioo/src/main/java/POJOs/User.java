@@ -12,6 +12,7 @@ package POJOs;
 public class User {
 
     //Atributos
+    private String userId;
     private String phoneNumber;
     private String username;
     private String password;
@@ -61,7 +62,6 @@ public class User {
         this.gender = gender;
     }
 
-    
     //Getters y setters
     public String getPhoneNumber() {
         return phoneNumber;
@@ -117,6 +117,14 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }

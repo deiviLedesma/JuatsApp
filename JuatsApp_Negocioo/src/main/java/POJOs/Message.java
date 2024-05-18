@@ -26,13 +26,19 @@ public class Message {
     public Message() {
     }
 
+    public Message(String text, User sender) {
+        this.text = text;
+        this.sender = sender;
+    }
+
     /**
      * Constructor con los atributos creados
+     *
      * @param messageId
      * @param text
      * @param imageUrl
      * @param sender
-     * @param timestamp 
+     * @param timestamp
      */
     public Message(String messageId, String text, String imageUrl, User sender, Date timestamp) {
         this.messageId = messageId;
@@ -41,9 +47,8 @@ public class Message {
         this.sender = sender;
         this.timestamp = timestamp;
     }
-    
-    //Getters y setters
 
+    //Getters y setters
     public String getMessageId() {
         return messageId;
     }
@@ -83,5 +88,5 @@ public class Message {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    
+
 }
