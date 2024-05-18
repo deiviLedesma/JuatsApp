@@ -14,12 +14,15 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -34,7 +37,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private MongoCollection<User> coleccionUsuarios;
     private CodecRegistry pojoCodecRegistry;
     private User currentUser;
-    private Chat chat;
+    private Chat chatM;
 
     /**
      * Creates new form Chat
@@ -45,10 +48,14 @@ public class ChatFrame extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        coleccionChats = Conexion.getDatabase().getCollection("chat", Chat.class);
-        coleccionUsuarios = Conexion.getDatabase().getCollection("users", User.class);
+        this.chatM = new Chat();
+
+        jTextArea1.setEditable(false);
 
         chatDAO = new ChatDAO(coleccionChats);
+
+        coleccionChats = Conexion.getDatabase().getCollection("chat", Chat.class);
+        coleccionUsuarios = Conexion.getDatabase().getCollection("users", User.class);
 
         // Creamos el CodecRegistry para UserDAO
         pojoCodecRegistry = fromRegistries(
@@ -63,17 +70,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jComboBox1.setModel(comboBoxModel);
 
         cargarUsuariosEnComboBox();
-        mostrarMensajesDeChat(chat);
-    }
-
-    private Chat obtenerOCrearChat(User currentUser, User selectedUser) {
-        List<Chat> chats = chatDAO.obtenerChatsDeUsuario(currentUser);
-        for (Chat chat : chats) {
-            if (chat.getParticipants().contains(selectedUser)) {
-                return chat;
-            }
-        }
-        return null;
+        mostrarMensajesDeChat(chatM);
     }
 
     private void cargarUsuariosEnComboBox() {
@@ -91,31 +88,18 @@ public class ChatFrame extends javax.swing.JFrame {
         }
     }
 
-    private void enviarMensaje() {
+    private void sendMessage() throws Exception {
         String messageText = txtEnvia.getText().trim();
         if (!messageText.isEmpty()) {
-            User selectedUser = (User) jComboBox1.getSelectedItem();
-            if (selectedUser != null) {
-                try {
-                    // Crear o encontrar un chat entre el usuario actual y el usuario seleccionado
-                    Chat chat = obtenerOCrearChat(currentUser, selectedUser);
-
-                    // Crear un nuevo mensaje
-                    Message message = new Message(chat.getChatId(), messageText, "", currentUser, new Date());
-
-                    // Agregar el mensaje al chat
-                    chatDAO.addMessage(chat.getChatId(), messageText, "", currentUser);
-
-                    // Actualizar el área de texto del chat
-                    mostrarMensajesDeChat(chat);
-
-                    // Limpiar el campo de texto del mensaje
-                    txtEnvia.setText("");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error al enviar el mensaje: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            String selectedUsername = (String) jComboBox1.getSelectedItem();
+            User recipientUser = (User) chatDAO.obtenerChatsDeUsuario(currentUser);
+            if (recipientUser != null) {
+                Chat chat = chatDAO.obtenerOcrearChat(currentUser, recipientUser);
+                Message message = new Message(messageText, currentUser);
+                chatDAO.addMessage(messageText, messageText, messageText, currentUser);
+                txtEnvia.setText("");
             } else {
-                JOptionPane.showMessageDialog(this, "Por favor selecciona un usuario.");
+                JOptionPane.showMessageDialog(this, "No se pudo encontrar el usuario seleccionado.");
             }
         }
     }
@@ -206,7 +190,11 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        try {
+            sendMessage();
+        } catch (Exception ex) {
+            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -218,6 +206,8 @@ public class ChatFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        ChatFrame cf = new ChatFrame();
+        System.out.println(cf.jTextArea1);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
